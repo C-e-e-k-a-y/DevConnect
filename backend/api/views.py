@@ -7,6 +7,8 @@ from queries.recommendations import (
     get_developer_technologies,
     get_related_developers,
 )
+from queries.profile import get_developer_profile
+from queries.graph import get_graph_data
 
 
 def developers(request):
@@ -90,3 +92,59 @@ def related_developers(request, name):
     ]
 
     return JsonResponse({"developer": name, "related_developers": data})
+
+
+def developer_profile(request, name):
+    if request.method != "GET":
+        return JsonResponse({"error": "Method not allowed"}, status=405)
+
+    result = get_developer_profile(name)
+
+    if result is None:
+        return JsonResponse({"error": "Developer not found"}, status=404)
+
+    developer = result["developer"]
+
+    data = {
+        "id": developer["id"],
+        "name": developer["name"],
+        "email": developer["email"],
+        "role": developer["role"],
+        "location": developer["location"],
+        "skills": [
+            {
+                "id": skill["id"],
+                "name": skill["name"],
+                "category": skill["category"],
+            }
+            for skill in result["skills"]
+        ],
+        "projects": [
+            {
+                "id": project["id"],
+                "name": project["name"],
+                "description": project["description"],
+                "status": project["status"],
+            }
+            for project in result["projects"]
+        ],
+        "technologies": [
+            {
+                "id": technology["id"],
+                "name": technology["name"],
+                "category": technology["category"],
+            }
+            for technology in result["technologies"]
+        ],
+    }
+
+    return JsonResponse(data)
+
+
+def graph_data(request):
+    if request.method != "GET":
+        return JsonResponse({"error": "Method not allowed"}, status=405)
+
+    data = get_graph_data()
+
+    return JsonResponse(data)

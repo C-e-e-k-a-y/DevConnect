@@ -3,8 +3,20 @@ from api.database import driver
 
 def seed_database():
     with driver.session() as session:
+
+        # Clear existing development data
+        session.run("""
+            MATCH (n)
+            DETACH DELETE n
+        """)
+
         session.run("""
             CREATE
+
+                // =========================
+                // DEVELOPERS
+                // =========================
+
                 (kareem:Developer {
                     id: 'dev-001',
                     name: 'Kareem Adeyemi',
@@ -29,23 +41,37 @@ def seed_database():
                     location: 'Lagos'
                 }),
 
-                (react:Skill {
+                // =========================
+                // SKILLS
+                // =========================
+
+                (reactSkill:Skill {
                     id: 'skill-001',
                     name: 'React',
                     category: 'Frontend'
                 }),
 
-                (python:Skill {
+                (javascriptSkill:Skill {
                     id: 'skill-002',
+                    name: 'JavaScript',
+                    category: 'Programming Language'
+                }),
+
+                (pythonSkill:Skill {
+                    id: 'skill-003',
                     name: 'Python',
                     category: 'Backend'
                 }),
 
-                (django:Skill {
-                    id: 'skill-003',
+                (djangoSkill:Skill {
+                    id: 'skill-004',
                     name: 'Django',
                     category: 'Backend'
                 }),
+
+                // =========================
+                // PROJECTS
+                // =========================
 
                 (ecommerce:Project {
                     id: 'project-001',
@@ -61,31 +87,71 @@ def seed_database():
                     status: 'In Progress'
                 }),
 
+                // =========================
+                // TECHNOLOGIES
+                // =========================
+
                 (postgres:Technology {
                     id: 'tech-001',
                     name: 'PostgreSQL',
                     category: 'Database'
                 }),
 
-                (javascript:Technology {
+                (javascriptTech:Technology {
                     id: 'tech-002',
                     name: 'JavaScript',
                     category: 'Programming Language'
                 }),
 
-                (kareem)-[:HAS_SKILL]->(react),
-                (kareem)-[:HAS_SKILL]->(javascript),
-                (sarah)-[:HAS_SKILL]->(python),
-                (sarah)-[:HAS_SKILL]->(django),
-                (david)-[:HAS_SKILL]->(react),
-                (david)-[:HAS_SKILL]->(python),
+                (reactTech:Technology {
+                    id: 'tech-003',
+                    name: 'React',
+                    category: 'Frontend Framework'
+                }),
+
+                (djangoTech:Technology {
+                    id: 'tech-004',
+                    name: 'Django',
+                    category: 'Backend Framework'
+                }),
+
+                // =========================
+                // SKILL RELATIONSHIPS
+                // =========================
+
+                (kareem)-[:HAS_SKILL]->(reactSkill),
+                (kareem)-[:HAS_SKILL]->(javascriptSkill),
+
+                (sarah)-[:HAS_SKILL]->(pythonSkill),
+                (sarah)-[:HAS_SKILL]->(djangoSkill),
+
+                (david)-[:HAS_SKILL]->(reactSkill),
+                (david)-[:HAS_SKILL]->(pythonSkill),
+                (david)-[:HAS_SKILL]->(javascriptSkill),
+
+                // =========================
+                // PROJECT RELATIONSHIPS
+                // =========================
 
                 (kareem)-[:WORKED_ON]->(ecommerce),
                 (sarah)-[:WORKED_ON]->(school),
                 (david)-[:WORKED_ON]->(ecommerce),
 
+                // =========================
+                // TECHNOLOGY RELATIONSHIPS
+                // =========================
+
                 (ecommerce)-[:USES]->(postgres),
-                (ecommerce)-[:USES]->(javascript),
+                (ecommerce)-[:USES]->(javascriptTech),
+                (ecommerce)-[:USES]->(reactTech),
+
+                (school)-[:USES]->(postgres),
+                (school)-[:USES]->(djangoTech),
+                (school)-[:USES]->(javascriptTech),
+
+                // =========================
+                // FOLLOW RELATIONSHIPS
+                // =========================
 
                 (kareem)-[:FOLLOWS]->(sarah),
                 (sarah)-[:FOLLOWS]->(david),
