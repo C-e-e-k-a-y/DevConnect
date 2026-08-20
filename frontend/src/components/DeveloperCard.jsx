@@ -40,7 +40,6 @@ function DeveloperCard({ developer }) {
         </div>
       </div>
 
-      {/* Divider */}
       <div className="my-5 h-px bg-dev-border" />
 
       {/* Profile link */}

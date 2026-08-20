@@ -4,9 +4,7 @@ from api.database import driver
 def seed_database():
     with driver.session() as session:
 
-        # ============================================
         # CLEAR EXISTING DEVELOPMENT DATA
-        # ============================================
 
         session.run("""
             MATCH (n)

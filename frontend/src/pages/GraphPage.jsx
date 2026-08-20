@@ -8,9 +8,7 @@ function GraphPage() {
 
       <div className="mx-auto w-[92%] max-w-7xl py-8 md:py-12">
 
-        {/* =========================
-            BACK LINK
-        ========================= */}
+        {/* BACK LINK */}
 
         <Link
           to="/"
@@ -21,9 +19,7 @@ function GraphPage() {
         </Link>
 
 
-        {/* =========================
-            PAGE HEADER
-        ========================= */}
+        {/* PAGE HEADER */}
 
         <section className="mt-8 md:mt-10">
 
@@ -84,19 +80,12 @@ function GraphPage() {
 
         </section>
 
-
-        {/* =========================
-            GRAPH
-        ========================= */}
-
         <section className="mt-8 md:mt-10">
           <GraphView />
         </section>
 
 
-        {/* =========================
-            INFORMATION
-        ========================= */}
+        {/* INFORMATION */}
 
         <section className="mt-8 grid gap-4 md:grid-cols-3">
 
@@ -126,9 +115,7 @@ function GraphPage() {
 }
 
 
-/* =========================
-   INFO CARD
-========================= */
+{/* INFO CARD */}
 
 function InfoCard({ number, title, description }) {
   return (

@@ -36,9 +36,7 @@ function DeveloperProfile() {
     loadProfile();
   }, [name]);
 
-  /* =========================
-     LOADING STATE
-  ========================= */
+  {/* LOADING STATE */}
 
   if (loading) {
     return (
@@ -50,9 +48,7 @@ function DeveloperProfile() {
     );
   }
 
-  /* =========================
-     ERROR STATE
-  ========================= */
+  {/* ERROR STATE */}
 
   if (error || !developer) {
     return (
@@ -95,9 +91,7 @@ function DeveloperProfile() {
 
       <div className="mx-auto w-[92%] max-w-6xl py-8 md:py-12">
 
-        {/* =========================
-            BACK LINK
-        ========================= */}
+        {/* BACK LINK */}
 
         <Link
           to="/"
@@ -108,9 +102,7 @@ function DeveloperProfile() {
         </Link>
 
 
-        {/* =========================
-            PROFILE HEADER
-        ========================= */}
+        {/* PROFILE HEADER */}
 
         <section className="relative mt-6 overflow-hidden rounded-3xl bg-dev-navy text-white shadow-xl">
 
@@ -140,7 +132,7 @@ function DeveloperProfile() {
                   </span>
                 </div>
 
-                <h1 className="break-words text-3xl font-black tracking-tight sm:text-4xl md:text-5xl">
+                <h1 className="wrap-break-word text-3xl font-black tracking-tight sm:text-4xl md:text-5xl">
                   {developer.name}
                 </h1>
 
@@ -159,9 +151,7 @@ function DeveloperProfile() {
         </section>
 
 
-        {/* =========================
-            SKILLS
-        ========================= */}
+        {/* SKILLS */}
 
         <section className="mt-6 rounded-3xl border border-dev-border bg-white p-7 shadow-sm sm:p-8">
 
@@ -188,9 +178,7 @@ function DeveloperProfile() {
         </section>
 
 
-        {/* =========================
-            PROJECTS
-        ========================= */}
+        {/* PROJECTS */}
 
         <section className="mt-6 rounded-3xl border border-dev-border bg-white p-7 shadow-sm sm:p-8">
 
@@ -236,9 +224,7 @@ function DeveloperProfile() {
         </section>
 
 
-        {/* =========================
-            TECHNOLOGIES
-        ========================= */}
+        {/* TECHNOLOGIES */}
 
         <section className="mt-6 rounded-3xl border border-dev-border bg-white p-7 shadow-sm sm:p-8">
 
@@ -285,9 +271,7 @@ function DeveloperProfile() {
         </section>
 
 
-        {/* =========================
-            RELATED DEVELOPERS
-        ========================= */}
+        {/* RELATED DEVELOPERS */}
 
         <section className="mt-6 rounded-3xl border border-dev-border bg-white p-7 shadow-sm sm:p-8">
 
@@ -382,11 +366,6 @@ function DeveloperProfile() {
   );
 }
 
-
-/* =========================
-   SECTION HEADING
-========================= */
-
 function SectionHeading({ eyebrow, title }) {
   return (
     <div>
@@ -400,11 +379,6 @@ function SectionHeading({ eyebrow, title }) {
     </div>
   );
 }
-
-
-/* =========================
-   PROJECT STATUS
-========================= */
 
 function ProjectStatus({ status }) {
   const completed =
@@ -423,11 +397,6 @@ function ProjectStatus({ status }) {
   );
 }
 
-
-/* =========================
-   EMPTY SECTION
-========================= */
-
 function EmptySection({ message }) {
   return (
     <p className="mt-5 text-sm text-dev-text-muted">
@@ -435,11 +404,6 @@ function EmptySection({ message }) {
     </p>
   );
 }
-
-
-/* =========================
-   PROFILE SKELETON
-========================= */
 
 function ProfileSkeleton() {
   return (

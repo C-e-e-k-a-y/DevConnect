@@ -28,13 +28,7 @@ function Home() {
   return (
     <main className="min-h-screen bg-dev-background">
 
-      {/* =========================
-          HERO
-      ========================= */}
-
       <section className="relative overflow-hidden bg-dev-navy text-white">
-
-        {/* Decorative background */}
 
         <div className="pointer-events-none absolute inset-0">
 
@@ -53,20 +47,10 @@ function Home() {
 
         </div>
 
+        <div className="flex justify-center relative mx-auto w-[92%] max-w-7xl py-20 md:py-28">
 
-        {/* Hero content */}
-
-        <div className="relative mx-auto w-[92%] max-w-7xl py-20 md:py-28">
-
-          <div className="grid items-center gap-14 lg:grid-cols-[1.2fr_0.8fr]">
-
-            {/* Left */}
-
-            <div className="max-w-3xl">
-
-              {/* Eyebrow */}
-
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-dev-green/30 bg-dev-green/10 px-4 py-2">
+          <div className="items-center gap-14 max-w-3xl">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-dev-green/30 bg-dev-green/10 px-4 py-2">
 
                 <span className="h-2 w-2 rounded-full bg-dev-green shadow-[0_0_12px_rgba(34,197,94,0.8)]" />
 
@@ -75,9 +59,6 @@ function Home() {
                 </span>
 
               </div>
-
-
-              {/* Heading */}
 
               <h1 className="text-5xl font-black leading-[1.05] tracking-tight sm:text-6xl md:text-7xl">
 
@@ -91,9 +72,6 @@ function Home() {
 
               </h1>
 
-
-              {/* Description */}
-
               <p className="mt-7 max-w-2xl text-base leading-7 text-slate-300 sm:text-lg sm:leading-8">
                 Discover developers and explore how their skills,
                 projects, and technologies connect through a
@@ -101,12 +79,7 @@ function Home() {
               </p>
 
 
-              {/* Search */}
-
               <SearchBar />
-
-
-              {/* Graph button */}
 
               <div className="mt-5 flex flex-wrap items-center gap-4">
 
@@ -119,14 +92,7 @@ function Home() {
                   <span>→</span>
                 </Link>
 
-                <span className="text-xs text-slate-400">
-                  Powered by CognoDB
-                </span>
-
               </div>
-
-
-              {/* Quick information */}
 
               <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-slate-400">
 
@@ -147,27 +113,11 @@ function Home() {
 
               </div>
 
-            </div>
-
-
-            {/* Right — Graph preview */}
-
-            <div className="hidden lg:block">
-
-              <GraphPreview />
-
-            </div>
-
           </div>
 
         </div>
 
       </section>
-
-
-      {/* =========================
-          NETWORK OVERVIEW
-      ========================= */}
 
       <section className="border-b border-dev-border bg-white">
 
@@ -196,11 +146,6 @@ function Home() {
         </div>
 
       </section>
-
-
-      {/* =========================
-          DEVELOPERS
-      ========================= */}
 
       <section className="mx-auto w-[92%] max-w-7xl py-16 md:py-20">
 
@@ -236,7 +181,7 @@ function Home() {
         </div>
 
 
-        {/* Loading */}
+        {/* When Loading */}
 
         {loading && (
           <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
@@ -249,7 +194,7 @@ function Home() {
         )}
 
 
-        {/* Error */}
+        {/* If Error */}
 
         {!loading && error && (
           <div className="rounded-2xl border border-red-200 bg-red-50 p-8 text-center">
@@ -270,7 +215,7 @@ function Home() {
         )}
 
 
-        {/* Empty */}
+        {/* If Empty */}
 
         {!loading && !error && developers.length === 0 && (
           <div className="rounded-2xl border border-dev-border bg-white p-12 text-center shadow-sm">
@@ -291,9 +236,6 @@ function Home() {
           </div>
         )}
 
-
-        {/* Developers */}
-
         {!loading &&
           !error &&
           developers.length > 0 && (
@@ -310,11 +252,6 @@ function Home() {
           )}
 
       </section>
-
-
-      {/* =========================
-          GRAPH CTA
-      ========================= */}
 
       <section className="mx-auto w-[92%] max-w-7xl pb-16 md:pb-20">
 
@@ -361,11 +298,6 @@ function Home() {
   );
 }
 
-
-/* =========================
-   STAT
-========================= */
-
 function Stat({ value, label }) {
   return (
     <div className="border-r border-dev-border px-4 py-7 text-center last:border-r-0 sm:px-6">
@@ -381,125 +313,6 @@ function Stat({ value, label }) {
     </div>
   );
 }
-
-
-/* =========================
-   GRAPH PREVIEW
-========================= */
-
-function GraphPreview() {
-  const nodes = [
-    { x: 55, y: 105, label: "Developer", main: true },
-    { x: 190, y: 55, label: "React" },
-    { x: 210, y: 155, label: "Python" },
-    { x: 330, y: 95, label: "Project" },
-    { x: 335, y: 190, label: "PostgreSQL" },
-  ];
-
-  const lines = [
-    [55, 105, 190, 55],
-    [55, 105, 210, 155],
-    [190, 55, 330, 95],
-    [210, 155, 335, 190],
-    [330, 95, 335, 190],
-  ];
-
-  return (
-    <div className="relative h-80 w-full overflow-hidden rounded-3xl border border-white/10 bg-white/4 shadow-2xl">
-
-      <div className="absolute left-6 top-6">
-
-        <p className="text-xs font-bold uppercase tracking-[0.18em] text-dev-green">
-          Knowledge Graph
-        </p>
-
-        <p className="mt-1 text-sm text-slate-400">
-          Connected developer data
-        </p>
-
-      </div>
-
-
-      <svg
-        viewBox="0 0 400 260"
-        className="absolute inset-0 h-full w-full"
-        preserveAspectRatio="xMidYMid meet"
-      >
-
-        {/* Connections */}
-
-        {lines.map((line, index) => (
-          <line
-            key={index}
-            x1={line[0]}
-            y1={line[1]}
-            x2={line[2]}
-            y2={line[3]}
-            stroke="rgba(74, 222, 128, 0.25)"
-            strokeWidth="1.5"
-          />
-        ))}
-
-
-        {/* Nodes */}
-
-        {nodes.map((node, index) => (
-          <g key={index}>
-
-            <circle
-              cx={node.x}
-              cy={node.y}
-              r={node.main ? 16 : 11}
-              fill={
-                node.main
-                  ? "#22c55e"
-                  : "rgba(255,255,255,0.12)"
-              }
-              stroke={
-                node.main
-                  ? "#86efac"
-                  : "rgba(255,255,255,0.25)"
-              }
-              strokeWidth="2"
-            />
-
-            <text
-              x={node.x}
-              y={node.y + 30}
-              textAnchor="middle"
-              fill="rgba(255,255,255,0.65)"
-              fontSize="9"
-              fontWeight="600"
-            >
-              {node.label}
-            </text>
-
-          </g>
-        ))}
-
-      </svg>
-
-
-      <div className="absolute bottom-5 left-6 rounded-xl border border-white/10 bg-black/20 px-3 py-2 backdrop-blur">
-
-        <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500">
-          Powered by
-        </p>
-
-        <p className="mt-0.5 text-xs font-bold text-white">
-          CognoDB
-        </p>
-
-      </div>
-
-    </div>
-  );
-}
-
-
-/* =========================
-   LOADING SKELETON
-========================= */
 
 function DeveloperSkeleton() {
   return (
@@ -526,6 +339,5 @@ function DeveloperSkeleton() {
     </div>
   );
 }
-
 
 export default Home;

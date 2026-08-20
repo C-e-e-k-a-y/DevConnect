@@ -45,9 +45,7 @@ function SearchResults() {
   return (
     <main className="min-h-screen bg-dev-background">
 
-      {/* =========================
-          HEADER
-      ========================= */}
+      {/* HEADER */}
 
       <section className="bg-dev-navy text-white">
 
@@ -85,9 +83,7 @@ function SearchResults() {
       </section>
 
 
-      {/* =========================
-          RESULTS
-      ========================= */}
+      {/* RESULTS */}
 
       <section className="mx-auto w-[92%] max-w-7xl py-10 md:py-14">
 
@@ -119,9 +115,7 @@ function SearchResults() {
         )}
 
 
-        {/* =========================
-            LOADING
-        ========================= */}
+        {/* LOADING */}
 
         {loading && (
           <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
@@ -134,9 +128,7 @@ function SearchResults() {
         )}
 
 
-        {/* =========================
-            ERROR
-        ========================= */}
+        {/* IF ERROR */}
 
         {!loading && error && (
           <div className="mx-auto max-w-xl rounded-3xl border border-red-200 bg-white p-10 text-center shadow-sm">
@@ -164,9 +156,7 @@ function SearchResults() {
         )}
 
 
-        {/* =========================
-            NO RESULTS
-        ========================= */}
+        {/* IF NO RESULTS */}
 
         {!loading &&
           !error &&
@@ -202,9 +192,7 @@ function SearchResults() {
           )}
 
 
-        {/* =========================
-            RESULTS
-        ========================= */}
+        {/* RESULTS */}
 
         {!loading &&
           !error &&
@@ -226,11 +214,6 @@ function SearchResults() {
     </main>
   );
 }
-
-
-/* =========================
-   SKELETON
-========================= */
 
 function SearchSkeleton() {
   return (
@@ -259,6 +242,5 @@ function SearchSkeleton() {
     </div>
   );
 }
-
 
 export default SearchResults;

@@ -61,14 +61,12 @@ function GraphView() {
     }
   };
 
-  /* =========================
-     LOADING STATE
-  ========================= */
+  /* LOADING STATE */
 
   if (loading) {
     return (
       <div className="overflow-hidden rounded-3xl border border-white/10 bg-dev-navy p-10 shadow-xl">
-        <div className="flex min-h-[500px] flex-col items-center justify-center text-center">
+        <div className="flex min-h-125 flex-col items-center justify-center text-center">
 
           <div className="h-12 w-12 animate-spin rounded-full border-4 border-white/10 border-t-dev-green" />
 
@@ -86,14 +84,12 @@ function GraphView() {
   }
 
 
-  /* =========================
-     ERROR STATE
-  ========================= */
+  /* ERROR STATE */
 
   if (error) {
     return (
       <div className="overflow-hidden rounded-3xl border border-red-400/20 bg-dev-navy p-10 shadow-xl">
-        <div className="flex min-h-[500px] flex-col items-center justify-center text-center">
+        <div className="flex min-h-125 flex-col items-center justify-center text-center">
 
           <div className="grid h-16 w-16 place-items-center rounded-2xl bg-red-500/10 text-2xl font-black text-red-400">
             !
@@ -115,10 +111,6 @@ function GraphView() {
 
   return (
     <div className="overflow-hidden rounded-3xl border border-white/10 bg-dev-navy shadow-xl">
-
-      {/* =========================
-          HEADER
-      ========================= */}
 
       <div className="border-b border-white/10 p-6 sm:p-8">
 
@@ -149,9 +141,7 @@ function GraphView() {
           </div>
 
 
-          {/* =========================
-              STATISTICS
-          ========================= */}
+          {/* STATISTICS */}
 
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
 
@@ -181,11 +171,9 @@ function GraphView() {
       </div>
 
 
-      {/* =========================
-          GRAPH
-      ========================= */}
+      {/* GRAPH */}
 
-      <div className="relative h-[600px] overflow-hidden bg-[#041321] sm:h-[680px]">
+      <div className="relative h-150 overflow-hidden bg-[#041321] sm:h-170">
 
         <ForceGraph2D
           graphData={graphData}
@@ -226,9 +214,7 @@ function GraphView() {
         />
 
 
-        {/* =========================
-            GRAPH LABEL
-        ========================= */}
+        {/* GRAPH LABEL */}
 
         <div className="pointer-events-none absolute left-5 top-5">
 
@@ -243,9 +229,7 @@ function GraphView() {
         </div>
 
 
-        {/* =========================
-            LEGEND
-        ========================= */}
+        {/* LEGEND */}
 
         <div className="absolute bottom-5 left-5 rounded-2xl border border-white/10 bg-dev-blue/95 p-4 shadow-xl backdrop-blur">
 
@@ -280,9 +264,7 @@ function GraphView() {
         </div>
 
 
-        {/* =========================
-            SELECTED NODE
-        ========================= */}
+        {/* SELECTED NODE */}
 
         {selectedNode && (
           <div className="absolute right-5 top-5 w-[calc(100%-2.5rem)] max-w-xs rounded-2xl border border-white/10 bg-dev-blue/95 p-5 shadow-2xl backdrop-blur">
@@ -343,9 +325,7 @@ function GraphView() {
       </div>
 
 
-      {/* =========================
-          FOOTER
-      ========================= */}
+      {/* FOOTER */}
 
       <div className="border-t border-white/10 bg-dev-blue px-6 py-4 sm:px-8">
 
@@ -371,9 +351,7 @@ function GraphView() {
 }
 
 
-/* =========================
-   GRAPH STAT
-========================= */
+/* GRAPH STAT */
 
 function GraphStat({ label, value }) {
   return (
@@ -392,9 +370,7 @@ function GraphStat({ label, value }) {
 }
 
 
-/* =========================
-   LEGEND ITEM
-========================= */
+/* LEGEND ITEM */
 
 function LegendItem({ color, label }) {
   return (
@@ -412,6 +388,5 @@ function LegendItem({ color, label }) {
     </div>
   );
 }
-
 
 export default GraphView;
