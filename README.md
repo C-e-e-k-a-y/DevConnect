@@ -1,27 +1,74 @@
 # DevConnect
 
-A graph-powered developer networking platform built with React,
-Django REST Framework, and CognoDB.
+A graph-powered, full-stack developer networking platform built with React, Django REST Framework, and CognoDB.
 
-## Overview
+## 1. Overview
 
 DevConnect allows users to discover developers and explore
-relationships between developers, skills, projects, and technologies.
+relationships between developers, their skills, projects, and technologies.
 
-The application demonstrates how a graph database can be used to
-represent and query interconnected developer data.
+The application demonstrates how a graph database can be used to represent and query interconnected developer data.
 
-## Features
+### Features
 
-- Developer directory
-- Developer profiles
-- Skill-based developer search
-- Related developer recommendations
-- Technology exploration
-- Interactive knowledge graph
-- Graph relationship visualization
+- Developer directory; browse registered developers.
+- Developer profiles; view detailed developer profiles
+- Skill-based developer search; search for developers based on their skills.
+- Related developer recommendations; discover developers related to a particular developer.
+- Technology exploration; explore technologies used by developers' projects.
+- Interactive visualization of the knowledge graph of existing relationships; visually explore connections between developers, skills, projects, and technologies.
 
-## Technology Stack
+## 2. Why a Graph Database?
+
+Unlike a traditional relational schema, where retrieving multi-level relationships may require several table joins, CognoDB stores these relationships directly as graph connections.
+
+This is well suited because DevConnect focuses on relationships between developers, skills, projects,
+and technologies, in which multi-hop traversal is highly involved.
+
+Therefore the use of a graph database makes relationship-based queries such as finding related developers, shared skills, and project technologies more natural, simpler and faster to traverse.
+
+## 3. Data Model
+
+The DevConnect graph contains four main entity types:
+
+- Developer
+- Skill
+- Project
+- Technology
+
+### Relationships
+
+The graph contains the following relationships:
+
+- `HAS_SKILL`
+- `WORKED_ON`
+- `USES`
+- `FOLLOWS`
+
+### Data Model Diagram
+
+```text
+                            ┌─────────────┐
+                            │    Skill    │
+                            └──────▲──────┘
+                                   │
+                                HAS_SKILL
+                                   │
+                                   │
+┌─────────────┐             ┌──────┴──────┐
+│  Developer  │────────────►│   Project   │
+└──────┬──────┘ WORKED_ON   └──────┬──────┘
+       │                           │
+       │                           │ USES
+       │ FOLLOWS                   │
+       │                           ▼
+       ▼                    ┌─────────────┐
+┌─────────────┐             │ Technology  │
+│  Developer  │             └─────────────┘
+└─────────────┘
+```
+
+## 4. Technology Stack
 
 ### Frontend
 
@@ -47,121 +94,149 @@ represent and query interconnected developer data.
 
 ```text
 React Frontend
-      |
-      | HTTP / REST API
-      ↓
+     |
+     | HTTP / REST API
+     ↓
 Django Backend
-      |
-      | Neo4j Driver
-      ↓
-CognoDB
+     |
+     | Neo4j Driver
+     ↓
+  CognoDB
 ```
 
-## Graph Model
+## 5. Setup and Run Instructions
 
-### The database contains four main entity types:
+### Prerequisites
 
-- Developer
-- Skill
-- Project
-- Technology
+Install the following:
 
-### Relationships include:
+- Python
+- Node.js
+- npm
+- Git
+- CognoDB account
 
-- HAS_SKILL
-- WORKED_ON
-- USES
-- FOLLOWS
+### Clone the Repository
 
-### Example:
+```git clone https://github.com/C-e-e-k-a-y/DevConnect
 
-```text
-Developer
-    |
-    | HAS_SKILL
-    ↓
-Skill
-
-Developer
-    |
-    | WORKED_ON
-    ↓
-Project
-    |
-    | USES
-    ↓
-Technology
+cd DevConnect
 ```
 
-## API Endpoints
+### Create the CognoDB Instance
 
-### Get developers
+- Go to the CognoDB Cloud signup page: `https://console.cognodb.com/signup` and create your account.
 
-GET /api/developers/
+- Create a free instance:
+  **Free (c0) instance**
+  Choose any available region that makes sense for you.
 
-### Get developer profile
+- When the instance is created, you should receive:
 
-GET /api/developers/<name>/
+```URI: bolt+s://<instance-id>.databases.cognodb.cloud
 
-### Get developer technologies
+Username: cognodb
 
-GET /api/developers/<name>/technologies/
-
-### Get related developers
-
-GET /api/developers/<name>/related/
-
-### Search developers by skill
-
-GET /api/search/?skill=React
-
-### Get graph data
-
-GET /api/graph/
-
-## Running the Project
-
-Run these commands sequentially in separate terminals for front and backend:
-
-#### Backend
-
-- cd backend
-- python -m venv venv
-
-#### Windows
-
-- venv\Scripts\activate
-- pip install -r requirements.txt
-- python manage.py runserver
-
-#### Frontend
-
-- cd frontend
-- npm install
-- npm run dev
-
-The frontend will be available at: http://localhost:5173
-
-The backend will be available at: http://127.0.0.1:8000
-
-## Sample Graph
-
-The application visualizes relationships such as:
-
-```text
-Kareem Adeyemi
-      |
-      HAS_SKILL
-      ↓
-    React
-
-Kareem Adeyemi
-      |
-      WORKED_ON
-      ↓
-E-Commerce Platform
-      |
-      USES
-      ↓
-  PostgreSQL
+Password: ********
 ```
+
+**Save those details immediately because they are shown only once.**
+
+### Set Up the Backend
+
+- Navigate to the backend directory:
+  `cd backend`
+
+- Create an env file and store those details:
+
+```
+COGNODB_URI=bolt+s://your-instance-id.databases.cognodb.cloud
+COGNODB_USERNAME=cognodb
+COGNODB_PASSWORD=your_actual_password
+```
+
+- Create a virtual environment:
+  `python -m venv venv`
+
+- Activate it on Windows:
+  `venv\Scripts\activate`
+
+- Install dependencies:
+  `pip install -r requirements.txt`
+
+- Run the database seed script:
+  `python seed_data.py`
+
+- Start Django:
+  `python manage.py runserver`
+  **The backend will be available at: http://127.0.0.1:8000**
+
+### Set Up the Frontend
+
+- Open another terminal and navigate to the frontend:
+  `cd frontend`
+
+- Install dependencies:
+  `npm install`
+
+- Start the development server:
+  `npm run dev`
+  **The frontend will be available at: http://localhost:5173**
+
+## 6. Main API Queries
+
+### Get All Developers
+
+`GET /api/developers/`
+Retrieves all developers stored in the graph.
+This query is used by the developer directory on the frontend.
+
+### Get Developer Profile
+
+`GET /api/developers/<name>/`
+Retrieves detailed information about a developer, including their connected skills, projects, and technologies.
+
+### Get Developer Technologies
+
+`GET /api/developers/<name>/technologies/`
+Retrieves technologies associated with projects worked on by the specified developer.
+
+### Get Related Developers
+
+`GET /api/developers/<name>/related/`
+Finds developers who are related through shared graph connections, such as common projects or skills.
+
+### Search Developers by Skill
+
+`GET /api/search/?skill=React`
+Finds developers connected to the specified skill.
+This allows users to discover developers based on their technical skills.
+
+### Get Graph Data
+
+`GET /api/graph/`
+Retrieves the nodes and relationships required by the frontend graph visualization
+
+## 7. UI Screenshots
+
+Screenshots of the completed application are included below.
+
+### Developer Directory
+
+Add screenshot here.
+`![Developer Directory](screenshots/developer-directory.png)`
+
+### Developer Profile
+
+Add screenshot here.
+`![Developer Profile](screenshots/developer-profile.png)`
+
+### Skill Search
+
+Add screenshot here.
+`![Skill Search](screenshots/skill-search.png)`
+
+### Graph Explorer
+
+Add screenshot here.
+`![Graph Explorer](screenshots/graph-explorer.png)`
