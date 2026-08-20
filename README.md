@@ -326,18 +326,22 @@ RETURN
 
 Screenshots of the completed application are included below.
 
+### Landing Page
+
+![Landing Page](screenshots/Landing%20Page.png)
+
 ### Developer Directory
 
-Add screenshot here.
+![Developer Directory](screenshots/Developer%20Directory.png)
 
 ### Developer Profile
 
-Add screenshot here.
+![Developer Profile](screenshots/Developer%20Profile.png)
 
 ### Skill Search
 
-Add screenshot here.
+![Skill Search](screenshots/Skill%20Search.png)
 
 ### Graph Explorer
 
-Add screenshot here.
+![Graph Explorer](screenshots/Graph%20Explorer.png)
