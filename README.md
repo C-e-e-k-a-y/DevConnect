@@ -123,7 +123,7 @@ GET /api/graph/
 
 Run these commands sequentially in separate terminals for front and backend:
 
-### Backend
+#### Backend
 
 - cd backend
 - python -m venv venv
@@ -136,28 +136,32 @@ Run these commands sequentially in separate terminals for front and backend:
 
 #### Frontend
 
-cd frontend
-npm install
-npm run dev
+- cd frontend
+- npm install
+- npm run dev
 
 The frontend will be available at: http://localhost:5173
+
 The backend will be available at: http://127.0.0.1:8000
 
 ## Sample Graph
 
 The application visualizes relationships such as:
+
+```text
 Kareem Adeyemi
-|
-HAS_SKILL
-↓
-React
+      |
+      HAS_SKILL
+      ↓
+    React
 
 Kareem Adeyemi
-|
-WORKED_ON
-↓
+      |
+      WORKED_ON
+      ↓
 E-Commerce Platform
-|
-USES
-↓
-PostgreSQL
+      |
+      USES
+      ↓
+  PostgreSQL
+```
