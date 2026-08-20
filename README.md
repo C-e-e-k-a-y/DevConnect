@@ -108,17 +108,16 @@ Django Backend
 
 ### Prerequisites
 
-Install the following:
-
+- VSCode (or any IDE)
 - Python
 - Node.js
 - npm
 - Git
-- CognoDB account
 
 ### Clone the Repository
 
-```git clone https://github.com/C-e-e-k-a-y/DevConnect
+```
+git clone https://github.com/C-e-e-k-a-y/DevConnect
 
 cd DevConnect
 ```
@@ -133,7 +132,8 @@ cd DevConnect
 
 - When the instance is created, you should receive:
 
-```URI: bolt+s://<instance-id>.databases.cognodb.cloud
+```
+URI: bolt+s://<instance-id>.databases.cognodb.cloud
 
 Username: cognodb
 
@@ -169,7 +169,8 @@ COGNODB_PASSWORD=your_actual_password
 
 - Start Django:
   `python manage.py runserver`
-  **The backend will be available at: http://127.0.0.1:8000**
+
+**The backend will be available at: http://127.0.0.1:8000**
 
 ### Set Up the Frontend
 
@@ -181,41 +182,145 @@ COGNODB_PASSWORD=your_actual_password
 
 - Start the development server:
   `npm run dev`
-  **The frontend will be available at: http://localhost:5173**
+
+**The frontend will be available at: http://localhost:5173**
 
 ## 6. Main API Queries
 
 ### Get All Developers
 
-`GET /api/developers/`
 Retrieves all developers stored in the graph.
 This query is used by the developer directory on the frontend.
 
+#### Endpoint:
+
+`GET /api/developers/`
+
+#### Cypher:
+
+```
+MATCH (d:Developer)
+RETURN d
+ORDER BY d.name
+```
+
 ### Get Developer Profile
 
-`GET /api/developers/<name>/`
 Retrieves detailed information about a developer, including their connected skills, projects, and technologies.
+
+#### Endpoint:
+
+`GET /api/developers/<name>/`
+
+#### Cypher:
+
+```
+MATCH (d:Developer {name: $name})
+OPTIONAL MATCH (d)-[:HAS_SKILL]->(s:Skill)
+OPTIONAL MATCH (d)-[:WORKED_ON]->(p:Project)
+OPTIONAL MATCH (p)-[:USES]->(t:Technology)
+
+RETURN
+    d,
+    collect(DISTINCT s) AS skills,
+    collect(DISTINCT p) AS projects,
+    collect(DISTINCT t) AS technologies
+
+```
+
+($name) is the parameter to contain the developer name supplied by the user.
 
 ### Get Developer Technologies
 
+Retrieves all technologies associated with projects worked on by the specified developer.
+
+#### Endpoint:
+
 `GET /api/developers/<name>/technologies/`
-Retrieves technologies associated with projects worked on by the specified developer.
+
+#### Cypher:
+
+```
+MATCH (d:Developer {name: $name})
+      -[:WORKED_ON]->(p:Project)
+      -[:USES]->(t:Technology)
+
+RETURN DISTINCT t
+ORDER BY t.name
+
+```
 
 ### Get Related Developers
 
-`GET /api/developers/<name>/related/`
 Finds developers who are related through shared graph connections, such as common projects or skills.
+
+#### Endpoint:
+
+`GET /api/developers/<name>/related/`
+
+#### Cypher:
+
+```
+MATCH (d:Developer {name: $name})
+MATCH (other:Developer)
+WHERE other <> d
+    AND (
+        (d)-[:WORKED_ON]->(:Project)<-[:WORKED_ON]-(other)
+        OR
+        (d)-[:HAS_SKILL]->(:Skill)<-[:HAS_SKILL]-(other)
+    )
+
+RETURN DISTINCT
+    other.name AS name,
+    other.role AS role,
+    other.location AS location
+ORDER BY other.name
+```
 
 ### Search Developers by Skill
 
-`GET /api/search/?skill=React`
 Finds developers connected to the specified skill.
 This allows users to discover developers based on their technical skills.
 
+#### Endpoint:
+
+`GET /api/search/?skill=React`
+
+#### Cypher:
+
+```
+MATCH (d:Developer)-[:HAS_SKILL]->(s:Skill)
+WHERE toLower(s.name) = toLower($skill)
+
+RETURN DISTINCT
+    d.id AS id,
+    d.name AS name,
+    d.email AS email,
+    d.role AS role,
+    d.location AS location
+ORDER BY d.name
+```
+
+($skill) is the parameter to contain the developer skill supplied by the user.
+
 ### Get Graph Data
 
-`GET /api/graph/`
 Retrieves the nodes and relationships required by the frontend graph visualization
+
+#### Endpoint:
+
+`GET /api/graph/`
+
+#### Cypher:
+
+```
+MATCH (source)-[relationship]->(target)
+
+RETURN
+    source,
+    type(relationship) AS relationship_type,
+    target
+```
 
 ## 7. UI Screenshots
 
@@ -224,19 +329,15 @@ Screenshots of the completed application are included below.
 ### Developer Directory
 
 Add screenshot here.
-`![Developer Directory](screenshots/developer-directory.png)`
 
 ### Developer Profile
 
 Add screenshot here.
-`![Developer Profile](screenshots/developer-profile.png)`
 
 ### Skill Search
 
 Add screenshot here.
-`![Skill Search](screenshots/skill-search.png)`
 
 ### Graph Explorer
 
 Add screenshot here.
-`![Graph Explorer](screenshots/graph-explorer.png)`
