@@ -1,6 +1,6 @@
 # DevConnect
 
-A graph-powered, full-stack developer networking platform built with React, Django REST Framework, and CognoDB.
+A graph-powered, full-stack developer networking platform built with React, Django, and CognoDB.
 
 ## 1. Overview
 
@@ -83,7 +83,7 @@ The graph contains the following relationships:
 
 - Python
 - Django
-- Django REST Framework
+- Django
 
 ### Database
 
@@ -165,7 +165,7 @@ COGNODB_PASSWORD=your_actual_password
   `pip install -r requirements.txt`
 
 - Run the database seed script:
-  `python seed_data.py`
+  `python -m seed.seed_data`
 
 - Start Django:
   `python manage.py runserver`

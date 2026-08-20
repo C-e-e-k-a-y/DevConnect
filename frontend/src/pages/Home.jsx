@@ -27,19 +27,19 @@ function Home() {
   return (
     <main className="min-h-screen bg-slate-50">
       <div className="mx-auto w-[90%] max-w-7xl">
-        {/* Hero */}
-        <section className="py-20 md:py-28">
-          <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-slate-500">
+        
+        <section className="py-20 md:py-28 flex flex-col items-center text-center">
+          <p className="mb-3 text-xs md:text-lg font-bold uppercase tracking-[0.2em] text-slate-500">
             Developer Network
           </p>
 
-          <h1 className="max-w-4xl text-5xl font-extrabold leading-[1.05] tracking-tight text-slate-950 md:text-7xl">
+          <h1 className="text-5xl font-extrabold leading-[1.05] tracking-tight text-slate-950 md:text-7xl">
             Discover developers,
             <br />
             skills and connections.
           </h1>
 
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-500">
+          <p className="mt-6 text-lg leading-8 text-slate-500">
             Explore developers and discover connections
             through skills, projects and technologies.
           </p>

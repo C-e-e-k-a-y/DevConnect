@@ -20,7 +20,7 @@ function SearchBar() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="mt-8 flex max-w-2xl rounded-2xl border border-slate-200 bg-white p-1.5 shadow-sm"
+      className="mt-8 flex w-[90%] max-w-2xl rounded-2xl border border-slate-200 bg-white p-1.5 shadow-sm"
     >
       <input
         type="text"
